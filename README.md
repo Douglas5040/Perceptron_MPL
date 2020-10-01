@@ -17,7 +17,7 @@ Código disponível no gitHub > https://github.com/Douglas5040/Perceptron_MPL.gi
 
 
 
-#Importando as bibliotecas
+
 import numpy as np
 from math import inf
 
