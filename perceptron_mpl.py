@@ -53,7 +53,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
     output_saida     = np.zeros(n_saida)
     itcount          = 0
 
-    # Execução da rede aleatoria (estimar os erros)
+    # Execução da RN de forma aleatoria (estimando os erros)
     for i_index in range(n_inst):
         for node_ocult in range(num_node_ocult):
             input_acum_ocult[node_ocult] = np.sum(entrada_p[i_index] * pesos_ocult[:, node_ocult]) + bias_ocult[node_ocult]
@@ -70,7 +70,8 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
         itcount += 1
         print(f"While {itcount} - MaxInt {maxInt} | Global Erro = {format(np.sum(erro_global), '.5f')} | Mínimo Esperado = {eps*n_inst+relaxamento} ({eps}*{n_inst}+{relaxamento})\r", end="")
         for i_index in range(n_inst):
-            # forward
+
+            # forward da RN
             for node_ocult in range(num_node_ocult):
                 input_acum_ocult[node_ocult] = np.sum(entrada_p[i_index] * pesos_ocult[:, node_ocult]) + bias_ocult[node_ocult]
                 output_ocult[node_ocult]     = f_act_ocult(input_acum_ocult[node_ocult])
@@ -85,7 +86,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
             if (erro_global[i_index] <= eps):
                 continue
 
-            # backward
+            # backward da RN
             for node_saida in range(n_saida):
                 sigma_saida[node_saida]          = erro[node_saida] * df_act(input_acum_saida[node_saida])
                 pesos_saida_delta[:, node_saida] = delta * sigma_saida[node_saida]*output_ocult
@@ -122,16 +123,18 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
 
 #===============================================================================#
 
-def round_vect(vect):
+def arrendond_vector(vect):
 	vround = [round(x) for x in vect]
 	return vround
 
 #===============================================================================#
 
-# saida_discreta = True
-saida_discreta = True
-arredondamento = False
-# arredondamento = False
+# Muda a função de ativação dos nós(neuronios) de saidas, false é sigmoid, true é a binaria
+# Se saida_discreta for true não há necessidade de arrendondamento (true)
+saida_discreta = False
+
+# Arredonda o resultado antes de printar na tela, se vc quer que ele arredonde para 0 ou 1, pra ficar mais visivel.
+arredondamento = True
 
 #===============================================================================#
 
@@ -148,10 +151,10 @@ else:
     mlp = mlp_training(a, b, eps=1e-2)
 
 if arredondamento:
-    print(round_vect(mlp([0, 0])))
-    print(round_vect(mlp([0, 1])))
-    print(round_vect(mlp([1, 0])))
-    print(round_vect(mlp([1, 1])),"\n")
+    print(arrendond_vector(mlp([0, 0])))
+    print(arrendond_vector(mlp([0, 1])))
+    print(arrendond_vector(mlp([1, 0])))
+    print(arrendond_vector(mlp([1, 1])),"\n")
 else:
     print(mlp([0, 0]))
     print(mlp([0, 1]))
@@ -176,7 +179,7 @@ else:
 
 for v_canonico in ident_8x8:
     if arredondamento:
-        print(round_vect(mlp(v_canonico)),"\n")
+        print(arrendond_vector(mlp(v_canonico)),"\n")
     else:
         print(mlp(v_canonico),"\n")
 
@@ -193,6 +196,6 @@ else:
 
 for v_canonico in ident_15x15:
     if arredondamento:
-        print(round_vect(mlp(v_canonico)),"\n")
+        print(arrendond_vector(mlp(v_canonico)),"\n")
     else:
         print(mlp(v_canonico),"\n")
