@@ -1,4 +1,4 @@
-Exercício 02 - MLP e Autoencoder 
+# Exercício 02 - MLP e Autoencoder 
 
 Turma: Redes Neurais Código: SCC 5809
 
@@ -12,11 +12,12 @@ ID. Matricula (03) - 12116738 Laleska Mesquita
 
 
 
-Código disponível no gitHub > https://github.com/Douglas5040/Perceptron_MPL.git
+# Código disponível no gitHub > https://github.com/Douglas5040/Perceptron_MPL.git
 
 
 
 
+# Código do MLP
 
 import numpy as np
 from math import inf
