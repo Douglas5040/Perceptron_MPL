@@ -1,6 +1,5 @@
 import numpy as np
 from math import inf
-#===============================================================================#
 
 
 def sigmoid(x):
@@ -16,7 +15,6 @@ def limite_bin(x):
 def df_sigmoid(x):
     return np.exp(x)/((1.0 + np.exp(x))**2)
 
-#===============================================================================#
 
 
 def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_act=df_sigmoid, num_node_ocult=6, delta=0.75, eps=1e-1, relaxamento=0.0, maxInt=5e4):
@@ -71,7 +69,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
         print(f"While {itcount} - MaxInt {maxInt} | Global Erro = {format(np.sum(erro_global), '.5f')} | Mínimo Esperado = {eps*n_inst+relaxamento} ({eps}*{n_inst}+{relaxamento})\r", end="")
         for i_index in range(n_inst):
 
-            # forward da RN
+            # Forward da Rede Neural
             for node_ocult in range(num_node_ocult):
                 input_acum_ocult[node_ocult] = np.sum(entrada_p[i_index] * pesos_ocult[:, node_ocult]) + bias_ocult[node_ocult]
                 output_ocult[node_ocult]     = f_act_ocult(input_acum_ocult[node_ocult])
@@ -121,13 +119,12 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
 
     return mlp
 
-#===============================================================================#
 
 def arrendond_vector(vect):
 	vround = [round(x) for x in vect]
 	return vround
 
-#===============================================================================#
+
 
 # Muda a função de ativação dos nós(neuronios) de saidas, false é sigmoid, true é a binaria
 # Se saida_discreta for true não há necessidade de arrendondamento (true)
@@ -136,7 +133,7 @@ saida_discreta = False
 # Arredonda o resultado antes de printar na tela, se vc quer que ele arredonde para 0 ou 1, pra ficar mais visivel.
 arredondamento = True
 
-#===============================================================================#
+
 
 #
 #   XOR
@@ -161,7 +158,6 @@ else:
     print(mlp([1, 0]))
     print(mlp([1, 1]),"\n")
 
-#===============================================================================#
 
 #
 #   Matrizes identidade
@@ -184,7 +180,7 @@ for v_canonico in ident_8x8:
         print(mlp(v_canonico),"\n")
 
 
-#===============================================================================#
+
 
 N = 15
 ident_15x15 = np.eye(N).tolist()
