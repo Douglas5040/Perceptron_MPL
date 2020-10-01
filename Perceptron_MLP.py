@@ -1,3 +1,4 @@
+#Importando as bibliotecas
 import numpy as np
 from math import inf
 
@@ -51,7 +52,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
     output_saida     = np.zeros(n_saida)
     itcount          = 0
 
-    # Execução da Rede Neural de forma aleatoria com estimativa de erros
+    # Execução da Rede Neural de forma aleatoria e com estimativa de erros
     for i_index in range(n_inst):
         for node_ocult in range(num_node_ocult):
             input_acum_ocult[node_ocult] = np.sum(entrada_p[i_index] * pesos_ocult[:, node_ocult]) + bias_ocult[node_ocult]
@@ -100,7 +101,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
             pesos_saida = pesos_saida + pesos_saida_delta
             bias_saida  = bias_saida  + bias_saida_delta
 
-            # break - (Apendizado forçado de cada padrão por vez) (off: bacth mode, on: cycle/default mode)
+            # Break - (Apendizado forçado de cada padrão por vez) (off: bacth mode, on: cycle/default mode)
 
     print(f"While {itcount} - MaxInt {maxInt} | Global Erro = {format(np.sum(erro_global), '.4f')} | Mínimo Esperado = {eps*n_inst+relaxamento} ({eps}*{n_inst}+{relaxamento})\n\n", end="")
 
@@ -135,9 +136,9 @@ arredondamento = True
 
 
 
-#
-#   XOR
-#
+
+#   Problema do XOR
+
 
 a = [[0, 0], [0, 1], [1, 0], [1, 1]]
 b = [[0], [1], [1], [0]]
