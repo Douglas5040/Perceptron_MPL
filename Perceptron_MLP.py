@@ -1,8 +1,10 @@
-#Importando as bibliotecas
+#
+# Importando as bibliotecas
+# 
 import numpy as np
 from math import inf
 
-
+#Declarando as classes e métodos
 def sigmoid(x):
     return 1.0/(1.0 + np.exp(-x))
 
