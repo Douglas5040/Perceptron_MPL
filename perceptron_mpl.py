@@ -51,7 +51,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
     output_saida     = np.zeros(n_saida)
     itcount          = 0
 
-    # Execução da RN de forma aleatoria (estimando os erros)
+    # Execução da Rede Neural de forma aleatoria com estimativa de erros
     for i_index in range(n_inst):
         for node_ocult in range(num_node_ocult):
             input_acum_ocult[node_ocult] = np.sum(entrada_p[i_index] * pesos_ocult[:, node_ocult]) + bias_ocult[node_ocult]
@@ -84,7 +84,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
             if (erro_global[i_index] <= eps):
                 continue
 
-            # backward da RN
+            # Backward da Rede Neural
             for node_saida in range(n_saida):
                 sigma_saida[node_saida]          = erro[node_saida] * df_act(input_acum_saida[node_saida])
                 pesos_saida_delta[:, node_saida] = delta * sigma_saida[node_saida]*output_ocult
@@ -100,7 +100,7 @@ def mlp_training(entrada, saida, f_act_saida=sigmoid, f_act_ocult=sigmoid, df_ac
             pesos_saida = pesos_saida + pesos_saida_delta
             bias_saida  = bias_saida  + bias_saida_delta
 
-            # break # (Apendizado forçado de cada padrão por vez) (off: bacth mode, on: cycle/default mode)
+            # break - (Apendizado forçado de cada padrão por vez) (off: bacth mode, on: cycle/default mode)
 
     print(f"While {itcount} - MaxInt {maxInt} | Global Erro = {format(np.sum(erro_global), '.4f')} | Mínimo Esperado = {eps*n_inst+relaxamento} ({eps}*{n_inst}+{relaxamento})\n\n", end="")
 
@@ -130,7 +130,7 @@ def arrendond_vector(vect):
 # Se saida_discreta for true não há necessidade de arrendondamento (true)
 saida_discreta = False
 
-# Arredonda o resultado antes de printar na tela, se vc quer que ele arredonde para 0 ou 1, pra ficar mais visivel.
+# Arredonda o resultado antes de printar na tela, se você quer que ele arredonde para 0 ou 1, pra ficar mais visivel.
 arredondamento = True
 
 
@@ -159,9 +159,7 @@ else:
     print(mlp([1, 1]),"\n")
 
 
-#
 #   Matrizes identidade
-#
 
 N = 8
 ident_8x8 = np.eye(N).tolist()
